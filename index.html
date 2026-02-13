@@ -1,0 +1,305 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Be My Valentine?</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Poppins:wght@400;600&display=swap');
+
+        body {
+            margin: 0;
+            padding: 0;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-family:  Chiller;
+            overflow: hidden;
+            /* PLACEHOLDER BACKGROUND - Replace the URL below with your Tom & Jerry image */
+            background: linear-gradient(rgba(252, 190, 232, 0), rgba(88, 88, 247, 0)), 
+                        url('file:///C:/Users/STUDENT/Downloads/Untitled%20design%20(1).jpg'); 
+            background-size: cover;
+            background-position: center;
+        }
+    
+
+        .container {
+            text-align: center;
+            background: rgba(255, 255, 255, 0.400);
+            padding: 40px;
+            border-radius: 20px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+            max-width: 90%;
+            width: 400px;
+            position: relative;
+        }
+
+        h1 {
+            color: #051efd;
+            font-family: 'Dancing Script', cursive;
+            font-size: 2.5rem;
+            margin-bottom: 20px;
+        }
+
+        p {
+            font-size: 2.8rem;
+            color: #000000;
+            margin-bottom: 30px;
+        }
+
+        .btn-group {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            position: relative;
+            height: 50px; /* Space for buttons */
+        }
+
+        button {
+            padding: 10px 30px;
+            font-size: 1.1rem;
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: transform 0.2s;
+            font-weight: bold;
+        }
+
+        .btn-yes {
+            background-color: #ff4081;
+            color: white;
+            box-shadow: 0 4px 15px rgba(255, 29, 180, 0.4);
+        }
+
+        .btn-yes:hover {
+            transform: scale(1.1);
+        }
+
+        .btn-no {
+            background-color: #0979f8;
+            color: #b4fdf7;
+            position: relative; /* Allows moving */
+        }
+
+        /* Hide pages initially */
+        #page2, #page3 {
+            display: none;
+        }
+
+        /* --- GIFT BOX ANIMATION STYLES --- */
+        .gift-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 300px;
+            perspective: 1000px;
+            cursor: pointer;
+        }
+
+        .box {
+            width: 150px;
+            height: 150px;
+            background: #d32f2f;
+            position: relative;
+            transform-style: preserve-3d;
+            transition: transform 2s;
+        }
+
+        /* The Lid */
+        .lid {
+            width: 160px;
+            height: 40px;
+            background: #ff4081;
+            position: absolute;
+            top: -40px;
+            left: -5px;
+            transform-origin: bottom;
+            transition: transform 0.5s ease-in-out;
+            z-index: 10;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        /* The Ribbon */
+        .ribbon {
+            position: absolute;
+            background: gold;
+            z-index: 11;
+        }
+
+        .ribbon-vertical {
+            width: 20px;
+            height: 150px;
+            left: 65px;
+            background: gold;
+            position: absolute;
+        }
+
+        .ribbon-horizontal {
+            width: 150px;
+            height: 20px;
+            top: 65px;
+            background: gold;
+            position: absolute;
+        }
+
+        .lid .ribbon-bow {
+            width: 20px;
+            height: 40px;
+            background: gold;
+        }
+
+        /* --- PASTE THIS NEW CODE HERE --- */
+
+/* The container that moves up */
+.heart-popup {
+    position: absolute;
+    width: 150px;
+    height: 150px;
+    top: 10%;
+    left: 50%;
+    transform: translate(-50%, -50%) scale(0);
+    transition: transform 1s ease-in-out 0.5s, top 1s ease-in-out 0.5s;
+    z-index: 5;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* The actual image shaped like a heart */
+.gift-photo {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    /* This creates the heart shape */
+    clip-path: path('M75 135 C-30 60 -15 -15 75 40 C165 -15 180 60 75 135 Z');
+    background-color: white; 
+    box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+}
+
+/* The text under the photo */
+.heart-text {
+    position: absolute;
+    bottom: -10px;
+    color: #d32f2f;
+    font-size: 25px;
+    font-weight: bold;
+    width: 150px;
+    text-align: center;
+    text-shadow: 1px 1px 2px rgba(255,255,255,0.8);
+}
+
+/* Animation adjustment */
+.box.open .heart-popup {
+    top: -100px; 
+    transform: translate(-50%, -50%) scale(1.5);
+}
+
+        /* Animation Classes */
+        .box.open .lid {
+            transform: rotateX(-110deg);
+        }
+
+        .box.open .heart-popup {
+            top: -100px; /* Moves up */
+            transform: translate(-50%, -50%) rotate(0deg) scale(1.2);
+        }
+
+        .instruction {
+            margin-top: 50px;
+            color: #777;
+            font-size: 0.9rem;
+        }
+
+    </style>
+</head>
+<body>
+<body>
+    <audio id="bgMusic" loop style="display:none;">
+        <source src="c:\Users\STUDENT\Desktop\index.html\apna-bana-le-full-audio-bhediya-varun-dhawan-kriti-sanon-sachin-jigar-arijit-si_BGbCNm70.mp3" type="audio/mp3"> 
+    </audio>
+
+    <div class="container" id="page1">
+        <h1>dear Sanchu, wanna be my valentine? 
+            I know you won't click 'No'.. I mean you can't.. because it's out of your control.. You can try if you want.
+        </h1>
+        <div class="btn-group">
+            <button class="btn-yes" onclick="goToPage2()">YES</button>
+            <button class="btn-no" onmouseover="moveButton(this)" onclick="moveButton(this)">NO</button>
+        </div>
+    </div>
+
+    <div class="container" id="page2">
+        <h1>I know you would accept it 😝!</h1>
+        <p>Are you a bank loan? Because you’ve got my interest. <br> Don't you want any valentine gift?</p>
+        <div class="btn-group">
+            <button class="btn-yes" onclick="goToPage3()">YES</button>
+            <button class="btn-no" onmouseover="moveButton(this)" onclick="moveButton(this)">NO</button>
+        </div>
+    </div>
+
+    <div class="container" id="page3">
+        <h1>Here is your surprise!</h1>
+        <div class="gift-container" onclick="openGift()">
+            <div class="box" id="giftBox">
+                <div class="lid">
+                    <div class="ribbon-bow"></div>
+                </div>
+                <div class="ribbon-vertical"></div>
+                <div class="ribbon-horizontal"></div>
+                
+                <div class="heart-popup">
+    <img src="file:///C:/Users/STUDENT/Downloads/Untitled%20design.jpg" class="gift-photo"> 
+    <div class="heart-text">I love you!</div>
+</div>
+            </div>
+        </div>
+        <p class="instruction">Tap the box to open!</p>
+    </div>
+
+    <script>
+        // Function to move the 'No' button randomly
+        function moveButton(btn) {
+            // Get container dimensions to keep button inside or near
+            const container = document.querySelector('.container');
+            const containerRect = container.getBoundingClientRect();
+            
+            // Calculate random positions (limits movement to screen area roughly)
+            const newTop = Math.random() * (window.innerHeight - 100);
+            const newLeft = Math.random() * (window.innerWidth - 100);
+
+            // Apply new position fixed to screen to ensure it jumps away
+            btn.style.position = 'fixed';
+            btn.style.top = newTop + "px";
+            btn.style.left = newLeft + "px";
+        }
+
+        // Navigate to Page 2
+        function goToPage2() {
+            document.getElementById('page1').style.display = 'none';
+            document.getElementById('page2').style.display = 'block';
+            // --- ADD THIS LINE TO START MUSIC ---
+    var audio = document.getElementById('bgMusic');
+    audio.play();
+        }
+
+        // Navigate to Page 3
+        function goToPage3() {
+            document.getElementById('page2').style.display = 'none';
+            document.getElementById('page3').style.display = 'block';
+        }
+
+        // Open the Gift Box
+        function openGift() {
+            const box = document.getElementById('giftBox');
+            const instruction = document.querySelector('.instruction');
+            
+            // Add the 'open' class which triggers CSS transitions
+            box.classList.add('open');
+            instruction.style.display = 'none';
+        }
+    </script>
+</body>
+</html>
